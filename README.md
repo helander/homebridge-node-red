@@ -21,6 +21,6 @@ Homebridge accessories.
 The plugin requires no configuration, but if you would like to change the http port of the Node Red server (default port number 1956) you could easily change that
 via the plugin's configuration UI in the Homebridge UI. 
 
-The Node Red Editor is available at *http://<homebridge server host>:1956/red* , where 1956 must be changed in case you have configured another port number.
+The Node Red Editor is available at *http://homebridge_server_host:1956/red* , where 1956 must be changed in case you have configured another port number.
 
  
