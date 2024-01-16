@@ -69,7 +69,9 @@ export class NodeRedHomebridgePlatform implements DynamicPlatformPlugin {
     };
 
     // On first startup, create a hb-conf node representing the local homebridge.
-    if (!fs.existsSync(settings.userDir)) fs.mkdirSync(settings.userDir);
+    if (!fs.existsSync(settings.userDir)) {
+      fs.mkdirSync(settings.userDir);
+    }
     const flowFilePath = `${settings.userDir}/${settings.flowFile}`;
     if (!fs.existsSync(flowFilePath)) {
       this.log.info('Flows file did not exist => create one with a hb-config included');
