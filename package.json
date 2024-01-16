@@ -1,16 +1,16 @@
 {
   "private": true,
-  "displayName": "Plugin Name",
-  "name": "homebridge-plugin-name",
+  "displayName": "Node Red plugin for Homebridge",
+  "name": "@helander/homebridge-node-red",
   "version": "1.0.0",
-  "description": "A short description about what your plugin does.",
+  "description": "Run Node Red inside Homebridge.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME.git"
+    "url": "https://github.com/helander/homebridge-node-red.git"
   },
   "bugs": {
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
+    "url": "https://github.com/helander/homebridge-node-red/issues"
   },
   "engines": {
     "node": "^18.17.0 || ^20.9.0",
@@ -19,14 +19,19 @@
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/**.ts --max-warnings=0",
+    "lintfix": "eslint src/**.ts --fix",
     "watch": "npm run build && npm link && nodemon",
     "build": "rimraf ./dist && tsc",
     "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "node-red"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "node-red": "^3.1.3",
+    "node-red-contrib-homebridge-automation": "^0.1.11"
+  },
   "devDependencies": {
     "@types/node": "^18.16.20",
     "@typescript-eslint/eslint-plugin": "^5.62.0",

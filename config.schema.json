@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "NodeRedHomebridgePlugin",
   "pluginType": "platform",
   "singular": true,
   "schema": {
@@ -9,7 +9,13 @@
         "title": "Name",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": "Node Red Platform"
+      },
+      "port": {
+        "title": "Port number for Node Red editor.",
+        "type": "number",
+        "required": true,
+        "default": 1956
       }
     }
   }
