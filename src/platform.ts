@@ -64,14 +64,23 @@ export class NodeRedHomebridgePlatform implements DynamicPlatformPlugin {
       flowFile: 'flows.json',
       httpAdminRoot:'/red',
       httpNodeRoot: '/api',
-      userDir:`${this.storagePath}/nodered`,
+      userDir:`${this.storagePath}/nodered-${this.port}`,
       functionGlobalContext: { },    // enables global context
     };
 
-    // On first startup, create a hb-conf node representing the local homebridge.
+    // setup userDir and manage migration from old userDir naming
+    const oldUserDir = `${this.storagePath}/nodered`;
     if (!fs.existsSync(settings.userDir)) {
-      fs.mkdirSync(settings.userDir);
+      if (!fs.existsSync(oldUserDir)) {
+        fs.mkdirSync(settings.userDir);
+        this.log.info(`User directory created at ${settings.userDir}`);
+      } else {
+        fs.renameSync(oldUserDir, settings.userDir);
+        this.log.info(`User directory moved from ${oldUserDir} to ${settings.userDir}`);
+      }
     }
+
+    // On first startup, create a hb-conf node representing the local homebridge.
     const flowFilePath = `${settings.userDir}/${settings.flowFile}`;
     if (!fs.existsSync(flowFilePath)) {
       this.log.info('Flows file did not exist => create one with a hb-config included');
