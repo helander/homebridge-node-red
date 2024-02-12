@@ -29,7 +29,7 @@ via the plugin's configuration. Each setting has a name, which corresponds to pr
 values described in settings.js. These values are javascript values and the setting value to enter is a JSON representation of the value.
 String values, must be enclosed in double-quote characters. Since object property names are represented as strings in JSON, these must also be enclosed in double-quotes.
 The use of double-quote characters should be applied in case you enter the vales using the plugin's configuration UI. In case you edit the config.json directly, all JSON double-quote
-characters have to be escaped (prepended) by a backslash ('\') character. If you enter double-quotes in the plugin's UI, you could then have a look at the config.json and you should then
+characters have to be escaped (prepended) by a backslash ('\\') character. If you enter double-quotes in the plugin's UI, you could then have a look at the config.json and you should then
 see that the double-quotes has been escaped.
 
 ```
