@@ -5,6 +5,11 @@ import http from 'http';
 import express from 'express';
 import RED from 'node-red';
 
+type Setting = {
+  name: string;
+  value: string;
+};
+
 /**
  * NodeRedHomebridgePlatform
  */
@@ -12,6 +17,7 @@ export class NodeRedHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
   public readonly Characteristic: typeof Characteristic = this.api.hap.Characteristic;
   private port: number;
+  private settings: Setting[];
   private storagePath: string;
   private hapPin: string|null;
   constructor(
@@ -22,6 +28,10 @@ export class NodeRedHomebridgePlatform implements DynamicPlatformPlugin {
     this.log = log;
     this.log.info('Finished initializing platform:', config.name);
     this.port = config.port;
+    this.settings = config.settings;
+    if (this.settings === undefined) {
+      this.settings = [];
+    }
     this.storagePath = api.user.storagePath();
     this.hapPin = null;
     try {
@@ -67,6 +77,25 @@ export class NodeRedHomebridgePlatform implements DynamicPlatformPlugin {
       userDir:`${this.storagePath}/nodered-${this.port}`,
       functionGlobalContext: { },    // enables global context
     };
+
+
+
+
+    for(let i=0;i < this.settings.length; i+=1) {
+      const setting: Setting = this.settings[i];
+      const setting_value = setting.value.replaceAll(String.fromCharCode(8220), '"').replaceAll(String.fromCharCode(8221), '"');
+      let jvalue;
+      try {
+        jvalue = JSON.parse(setting_value);
+      } catch (err) {
+        this.log.error(`Illegal JSON @ ${setting.name} value ${setting_value}`);
+      }
+      settings[setting.name] = jvalue;
+    }
+
+    this.log.info('settings', settings);
+
+
 
     // setup userDir and manage migration from old userDir naming
     const oldUserDir = `${this.storagePath}/nodered`;

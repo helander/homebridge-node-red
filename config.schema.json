@@ -16,6 +16,24 @@
         "type": "number",
         "required": true,
         "default": 1956
+      },
+      "settings": {
+        "type": "array",
+        "required": false,
+        "items": {
+          "title": "Node Red settings.",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "required": true
+            },
+            "value": {
+              "type": "string",
+              "required": true
+            }
+          } 
+        }
       }
     }
   }
