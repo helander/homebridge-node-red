@@ -46,3 +46,34 @@ see that the double-quotes has been escaped.
         }
 
 ```
+
+Here is another example where we add a setting with a more complex value. This setting will require users to login with a username/password, in this case admin/admin.
+
+```
+        {
+            "name": "Node Red Platform",
+            "port": 1956,
+            "settings": [
+                {
+                    "name": "credentialSecret",
+                    "value": "\"hemligt\""
+                },
+                {
+                    "name": "adminAuth",
+                    "value": "{\"type\":\"credentials\",\"users\":[{\"username\":\"admin\",\"password\":\"$2a$08$1TnXg7/EOueefHkimDFcdOuWG8r7RgaLO7MaxpH9D4F/FfFGgZolW\",\"permissions\":\"*\"}]}"
+                }
+            ],
+            "platform": "NodeRedHomebridgePlugin"
+        }
+
+```
+
+Information about the **adminAuth** setting is available [here](https://nodered.org/docs/user-guide/runtime/securing-node-red#usernamepassword-based-authentication). 
+On that page you can also find information on how to create the password hashes that needs to be entered in the configuration.
+One of the mentioned methods is to use **node** with the **bcryptjs** package and this could easily be done using the Homebridge *terminal window*.
+Open the terminal from the Homebridge UI and run the following commands:
+
+```
+npm install bcryptjs
+node -e "console.log(require('bcryptjs').hashSync(process.argv[1], 8));" your-password-here
+```
